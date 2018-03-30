@@ -44,6 +44,8 @@ const bookmarkList = (function(){
   function render() {
     api.getBookmark((bookmarks) => {
       store.list = bookmarks;
+      $('.bookmarks').html(generateBookmarkIntoString(bookmarks));
+
     });
   }
 

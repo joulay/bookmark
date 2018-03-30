@@ -30,18 +30,16 @@ const store = (function() {
     this.items.push(item);
   };
 
-  // {
-  //   id: 1,
-  //   title: 'google maps',
-  //   link: 'https://www.google.com/maps',
-  //   description: 'mapquest, but better',
-  //   rating: '5',
-  //   expanded: false
-  // }
-
-
+ 
   return {
-    List: [],
+    list: [ {
+      id: 1,
+      title: 'google maps',
+      link: 'https://www.google.com/maps',
+      description: 'mapquest, but better',
+      rating: '5',
+      expanded: false
+    }],
     expanded: false,
     addBookmark
   };
