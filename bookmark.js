@@ -6,7 +6,7 @@
 const bookmarkList = (function(){
   function addBookmarkForm(bookmark) {
     return `
-   <div class="container">
+   <section class="bookmarks-list">
     <form action="#" name="bookmark" class="search">
       <fieldset>
         <legend>Tell us about your bookmark</legend>
@@ -33,7 +33,7 @@ const bookmarkList = (function(){
       </fieldset>
     </form>
     <ul class="output"></ul>
-  </div> `;
+  </section> `;
   }
 
   function generateBookmarkIntoString(bookmarkArray) {
@@ -91,6 +91,7 @@ const bookmarkList = (function(){
 
   function bindEventListeners() {
     renderNewBookmark();
+    handleNewBookmark();
   }
 
   return {

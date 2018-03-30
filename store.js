@@ -32,10 +32,10 @@ const store = (function() {
 
  
   return {
-    list: [ {
+    list: [{
       id: 1,
       title: 'google maps',
-      link: 'https://www.google.com/maps',
+      url: 'https://www.google.com/maps',
       description: 'mapquest, but better',
       rating: '5',
       expanded: false
