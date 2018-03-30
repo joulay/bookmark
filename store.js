@@ -1,6 +1,6 @@
 'use strict';
 
-/* global $ */
+/* global */
 
 // eslint-disable-next-line no-unused-vars
 
@@ -26,6 +26,11 @@
 // module.exports = app;
 
 const store = (function() {
+  const addItem = function(item) {
+    this.items.push(item);
+  };
+
+
   [
     {
       id: 1,
@@ -40,8 +45,8 @@ const store = (function() {
 
   return {
     list:[],
-    expanded: false
-
+    expanded: false,
+    addItem
   };
 
 });

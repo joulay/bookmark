@@ -28,11 +28,14 @@ const bookmarkList = (function(){
       const newBookmark = {
         title: $('#title').val(),
         desc: $('#description').val(),
-        rating: $('input[name=rating]:checked'),
+        rating: $('input[name=rating]:checked').val(),
         url: $('#url').val(),
         // id: cuid()
       };
-
+      $('#title').val('');
+      $('#description').val('');
+      $('input[name=Choose]').attr('checked',false);
+      $('#url').val('');
     });
   }
 
