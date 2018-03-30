@@ -22,6 +22,20 @@ const bookmarkList = (function(){
     </li>`;
   }
 
+  function handleNewBookmark(){
+    $('.search').on('submit', function(event) {
+      event.preventDefault();
+      const newBookmark = {
+        title: $('#title').val(),
+        desc: $('#description').val(),
+        rating: $('input[name=rating]:checked'),
+        url: $('#url').val(),
+        // id: cuid()
+      };
+
+    });
+  }
+
   function renderNewBookmark(data) {
     const bookmark = generateBookmark(data);
     $('.output').prepend(bookmark);
