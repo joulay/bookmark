@@ -26,27 +26,24 @@
 // module.exports = app;
 
 const store = (function() {
-  const addItem = function(item) {
+  const addBookmark = function(item) {
     this.items.push(item);
   };
 
+  // {
+  //   id: 1,
+  //   title: 'google maps',
+  //   link: 'https://www.google.com/maps',
+  //   description: 'mapquest, but better',
+  //   rating: '5',
+  //   expanded: false
+  // }
 
-  [
-    {
-      id: 1,
-      title: 'google maps',
-      link: 'https://www.google.com/maps',
-      description: 'mapquest, but better',
-      rating: '5',
-      expanded: false
-    }
-
-  ];
 
   return {
-    list:[],
+    List: [],
     expanded: false,
-    addItem
+    addBookmark
   };
 
 });

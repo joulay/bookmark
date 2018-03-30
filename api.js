@@ -9,6 +9,10 @@ const api = (function() {
     $.getJSON(BASE_URL + '/bookmarks', callback);  
   };
 
+  return {
+    getBookmark,
+
+  }; 
   
 
 }());
