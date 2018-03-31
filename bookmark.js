@@ -41,7 +41,7 @@ const bookmarkList = (function(){
     return bookmarks.join('');
   }
 
-  function render() {
+  function render() { //be involved with getting stuff on screen
     api.getBookmark((bookmarks) => {
       store.list = bookmarks;
       $('.bookmarks').html(generateBookmarkIntoString(bookmarks));
@@ -86,6 +86,7 @@ const bookmarkList = (function(){
 
   function renderNewBookmark(data) {
     const bookmark = generateBookmark(data);
+    console.log(bookmark);
     $('.output').prepend(bookmark);
   }
 
@@ -96,6 +97,7 @@ const bookmarkList = (function(){
 
   return {
     render,
+    bindEventListeners,
     generateBookmark
   };
 }());
