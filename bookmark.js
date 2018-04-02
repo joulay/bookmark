@@ -2,7 +2,6 @@
 /* global $, api, store, cuid */
 
 //eslint -disable-next-line no-unused-vars
-
 const bookmarkList = (function(){
   // function addBookmarkForm(bookmark) {
   //   return `
@@ -42,10 +41,13 @@ const bookmarkList = (function(){
   }
 
   function render() { //be involved with getting stuff on screen
+    //works immediately to work with w/e there by default
+    console.log('rendering');
     api.getBookmark((bookmarks) => {
       store.list = bookmarks;
-      $('.bookmarks').html(generateBookmarkIntoString(bookmarks));
-
+      $('.output').html(generateBookmarkIntoString(bookmarks));
+      console.log(bookmarks);
+      console.log('hello');
     });
   }
 
@@ -81,17 +83,16 @@ const bookmarkList = (function(){
       $('#description').val('');
       $('input[name=Choose]').attr('checked',false);
       $('#url').val('');
+    
+      api.createBookmark(newBookmark, function() {
+        store.addBookmark(newBookmark);
+      });
+      // .fail(renderError);
     });
   }
 
-  function renderNewBookmark(data) {
-    const bookmark = generateBookmark(data);
-    console.log(bookmark);
-    $('.output').prepend(bookmark);
-  }
 
   function bindEventListeners() {
-    renderNewBookmark();
     handleNewBookmark();
   }
 
