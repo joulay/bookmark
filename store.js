@@ -27,19 +27,12 @@
 
 const store = (function() {
   const addBookmark = function(item) {
-    this.items.push(item);
+    this.list.push(item);
   };
 
  
   return {
-    list: [{
-      id: 1,
-      title: 'google maps',
-      url: 'https://www.google.com/maps',
-      description: 'mapquest, but better',
-      rating: '5',
-      expanded: false
-    }],
+    list: [],
     expanded: false,
     addBookmark
   };
