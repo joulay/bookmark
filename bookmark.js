@@ -53,7 +53,7 @@ const bookmarkList = (function(){
     
       api.createBookmark(newBookmark, function(data) {
         console.log(data);
-        store.addBookmark(newBookmark);
+        store.addBookmark(data); 
       });
       // .fail(renderError);
     });
