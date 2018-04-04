@@ -68,6 +68,7 @@ const bookmarkList = (function(){
   return {
     render,
     bindEventListeners,
-    generateBookmark
+    generateBookmark,
+    renderError
   };
 }());

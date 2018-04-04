@@ -36,5 +36,3 @@ const api = (function() {
   
 
 }());
-
-
