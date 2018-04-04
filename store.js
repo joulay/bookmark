@@ -37,4 +37,4 @@ const store = (function() {
     addBookmark
   };
 
-});
+})();

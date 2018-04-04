@@ -8,8 +8,8 @@ const api = (function() {
   const getBookmark = function(callback) {
     $.getJSON(BASE_URL + '/bookmarks', callback); 
   };
-  const createBookmark = function(title, desc, rating, url, callback) {
-    const newEntry = JSON.stringify({title, desc, rating, url});
+  const createBookmark = function(bookmarkData, callback) {
+    const newEntry = JSON.stringify(bookmarkData);
     console.log(newEntry);
     return $.ajax({
       'url': BASE_URL + '/bookmarks',

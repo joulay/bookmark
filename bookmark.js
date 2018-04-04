@@ -10,12 +10,12 @@ const bookmarkList = (function(){
 
   function render() { //be involved with getting stuff on screen
     //works immediately to work with w/e there by default
-    console.log('rendering');
     api.getBookmark((bookmarks) => {
       store.list = bookmarks;
       $('.output').html(generateBookmarkIntoString(bookmarks));
       console.log(bookmarks);
     });
+    // api.createBookmark()
   }
 
   function generateBookmark(bookmark) {
@@ -52,7 +52,6 @@ const bookmarkList = (function(){
       $('#url').val('');
     
       api.createBookmark(newBookmark, function(data) {
-        console.log(data);
         store.addBookmark(data); 
       });
       // .fail(renderError);
