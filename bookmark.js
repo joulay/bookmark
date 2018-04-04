@@ -15,6 +15,7 @@ const bookmarkList = (function(){
       $('.output').html(generateBookmarkIntoString(bookmarks));
       // console.log(bookmarks);
     });
+
   }
 
   function generateBookmark(bookmark) {
@@ -43,17 +44,25 @@ const bookmarkList = (function(){
         desc: $('#description').val(),
         rating: $('input[name=rating]:checked').val(),
         url: $('#url').val(),
-        // id: cuid(),
+        id: cuid(),
       };
       $('#title').val('');
       $('#description').val('');
-      $('input[name=Choose]').attr('checked',false);
+      $('input[name=rating]').attr('checked',false);
       $('#url').val('');
     
       api.createBookmark(newBookmark, function(data) {
         store.addBookmark(data); 
+        render();
       })
         .fail(renderError);
+    });
+  }
+
+  function handleDelete(){
+    $('.bookmark-list').on('click', '#details-delete', event => {
+      const id = $(event.currentTarget); //find id
+      api.deleteBookmark(id, render);
     });
   }
 
@@ -63,6 +72,7 @@ const bookmarkList = (function(){
 
   function bindEventListeners() {
     handleNewBookmark();
+    handleDelete();
   }
 
   return {
