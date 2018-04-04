@@ -52,11 +52,14 @@ const bookmarkList = (function(){
     
       api.createBookmark(newBookmark, function(data) {
         store.addBookmark(data); 
-      });
-      // .fail(renderError);
+      })
+        .fail(renderError);
     });
   }
 
+  function renderError(error) {
+    alert(error.responseJSON.message);
+  }
 
   function bindEventListeners() {
     handleNewBookmark();

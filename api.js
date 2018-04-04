@@ -21,7 +21,7 @@ const api = (function() {
   };
   const deleteBookmark = function(id, callback) {
     return $.ajax({
-      'url': BASE_URL + '/bookmarks/:id',
+      'url': BASE_URL + '/bookmarks/' + id,
       'method': 'DELETE',
       'contentType': 'application/json',
       'success': callback
