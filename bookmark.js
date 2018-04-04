@@ -13,9 +13,8 @@ const bookmarkList = (function(){
     api.getBookmark((bookmarks) => {
       store.list = bookmarks;
       $('.output').html(generateBookmarkIntoString(bookmarks));
-      console.log(bookmarks);
+      // console.log(bookmarks);
     });
-    // api.createBookmark()
   }
 
   function generateBookmark(bookmark) {
