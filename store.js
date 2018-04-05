@@ -9,11 +9,15 @@ const store = (function() {
     this.list.push(item);
   };
 
+  // const deleteBookmark = function(id) {
+    
+  // };
  
   return {
     list: [],
     expanded: false,
-    addBookmark
+    addBookmark,
+    // deleteBookmark
   };
 
 }());

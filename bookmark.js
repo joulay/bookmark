@@ -20,7 +20,7 @@ const bookmarkList = (function(){
 
   function generateBookmark(bookmark) {
     return `
-    <li class="bookmark-list" data-bookmark-id="${bookmark.id}">
+    <li class="bookmark-list" id="bookmark-item-${bookmark.id}" data-bookmark-id="${bookmark.id}">
         <h3 class="item-title">${bookmark.title}</h3>
         <div class="item">
           <p class="bookmark-descr hidden">${bookmark.desc}</p>
@@ -28,8 +28,6 @@ const bookmarkList = (function(){
           <a href="${bookmark.url}" target="_blank" class="bookmark-url">
           Go To Site</a>
           <p class="rating">${bookmark.rating}</p>
-        </div>
-        <div class="bookmark-item-controls">
           <button class="bookmark-toggle" id="details-toggle" data-bookmark-id="${bookmark.id}">details</button>
           <button class="bookmark-delete" id="details-delete" data-bookmark-id="${bookmark.id}">delete</button>
         </div>
@@ -48,12 +46,13 @@ const bookmarkList = (function(){
       };
       $('#title').val('');
       $('#description').val('');
-      $('input[name=rating]').attr('checked',false);
+      $('input[name=rating]').prop('checked',false);
       $('#url').val('');
     
-      api.createBookmark(newBookmark, function(data) {
+      api.createBookmark(newBookmark, function(data) { // 2 data is coming from .ajax
         store.addBookmark(data); 
         render();
+        handleDeleteOneItem(newBookmark.id);
       })
         .fail(renderError);
     });
@@ -61,7 +60,17 @@ const bookmarkList = (function(){
 
   function handleDelete(){
     $('.bookmark-list').on('click', '#details-delete', event => {
-      const id = $(event.currentTarget); //find id
+      console.log('delete button');
+      const id = $(event.currentTarget).closest('li').attr('data-bookmark-id');
+      api.deleteBookmark(id, render);
+    });
+  }
+  
+  function handleDeleteOneItem(id){
+    console.log(id, $(`#bookmark-item-${id}`));
+    $(`#bookmark-item-${id}`).on('click', '#details-delete', event => {
+      console.log('delete button');
+      const id = $(event.currentTarget).closest('li').attr('data-bookmark-id');
       api.deleteBookmark(id, render);
     });
   }
