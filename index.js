@@ -3,7 +3,7 @@
 /* global $, bookmarkList */
 
 $(document).ready(function() {
-  bookmarkList.bindEventListeners();
   bookmarkList.render();
+  bookmarkList.bindEventListeners();
   
 });
