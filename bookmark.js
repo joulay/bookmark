@@ -11,16 +11,25 @@ const bookmarkList = (function(){
   function render() { //be involved with getting stuff on screen
     //works immediately to work with w/e there by default
     let filteredItems = store.list;
+
+    console.log('asdf', filteredItems);
+    console.log('ratingfiltered', store.ratingFilter);
     if (store.ratingFilter) {
       filteredItems = filteredItems.filter(item => {
-        item.rating >= store.ratingFilter;
+        console.log('each', item);
+        return item.rating >= store.ratingFilter;
       });
+
+      console.log('FILTERED', filteredItems);
+      $('.output').html(generateBookmarkIntoString(filteredItems));
+      
+    }else{
+      api.getBookmark((bookmarks) => {
+        store.list = bookmarks;
+        $('.output').html(generateBookmarkIntoString(bookmarks));
+        // bindEventListeners();
+      }); 
     }
-    api.getBookmark((bookmarks) => {
-      store.list = bookmarks;
-      $('.output').html(generateBookmarkIntoString(bookmarks));
-      // bindEventListeners();
-    }); 
   }
 
   function generateBookmark(bookmark) {
@@ -76,6 +85,7 @@ const bookmarkList = (function(){
   function filterByRating(){
     $('#rating').change(event => {
       const rating = $(event.currentTarget).val();
+     
       store.setRatingFilter(rating);
       render();
     });
@@ -90,6 +100,7 @@ const bookmarkList = (function(){
   function bindEventListeners() {
     handleNewBookmark();
     handleDeleteOneItem();
+    filterByRating();
   }
 
   return {
@@ -97,6 +108,6 @@ const bookmarkList = (function(){
     bindEventListeners,
     generateBookmark,
     renderError,
-    filterByRating
+    
   };
 }());
