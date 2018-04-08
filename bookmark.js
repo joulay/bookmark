@@ -13,7 +13,7 @@ const bookmarkList = (function(){
     api.getBookmark((bookmarks) => {
       store.list = bookmarks;
       $('.output').html(generateBookmarkIntoString(bookmarks));
-      bindEventListeners();
+      // bindEventListeners();
     });
 
   }
@@ -29,7 +29,7 @@ const bookmarkList = (function(){
           Go To Site</a>
           <p class="rating">${bookmark.rating}</p>
           <button class="bookmark-toggle" id="details-toggle" data-bookmark-id="${bookmark.id}">details</button>
-          <button class="bookmark-delete" id="details-delete" data-bookmark-id="${bookmark.id}">delete</button>
+          <button class="bookmark-delete" id="detail-delete" data-bookmark-id="${bookmark.id}">delete</button>
         </div>
     </li>`;
   }
@@ -37,57 +37,64 @@ const bookmarkList = (function(){
   function handleNewBookmark(){
     $('.search').on('submit', function(event) {
       event.preventDefault();
+      let cleanURL = $('#url').val().startsWith('http://') ? $('#url').val() : 'http://' + $('#url').val();
       const newBookmark = {
         title: $('#title').val(),
         desc: $('#description').val(),
         rating: $('input[name=rating]:checked').val(),
-        url: $('#url').val(),
+        url: cleanURL,
         id: cuid(),
       };
       $('#title').val('');
       $('#description').val('');
       $('input[name=rating]').prop('checked',false);
       $('#url').val('');
-    
       api.createBookmark(newBookmark, function(data) { // 2 data is coming from .ajax
+        alert('po');
         store.addBookmark(data); 
         render();
-        handleDeleteOneItem(newBookmark.id);
-      })
-        .fail(renderError);
+        // handleDeleteOneItem(newBookmark.id);
+      });
+      // .fail(renderError);
     });
   }
 
-  function handleDelete(){
-    $('.bookmark-list').on('click', '#details-delete', event => {
-      console.log('delete button');
-      const id = $(event.currentTarget).closest('li').attr('data-bookmark-id');
-      api.deleteBookmark(id, render);
-    });
-  }
+
+
+  // function handleDelete(){
+  //   alert('adsfads');
+  //   $('.bookmark-list').on('click', function(event){
+
+  //     alert('delete');
+  //     const id = $(event.currentTarget).closest('li').attr('data-bookmark-id');
+  //     api.deleteBookmark(id, render);
+  //     console.log('delete button ', id);
+  //   });
+  // }
   
-  function handleDeleteOneItem(id){
-    console.log(id, $(`#bookmark-item-${id}`));
-    $(`#bookmark-item-${id}`).on('click', '#details-delete', event => {
-      console.log('delete button');
-      const id = $(event.currentTarget).closest('li').attr('data-bookmark-id');
-      api.deleteBookmark(id, render);
+  function handleDeleteOneItem(){
+    $('.bookmarks-list').on('click', event => {
+      console.log('tareet',event);
+      const id = event.target.dataset.bookmarkId;
+      console.log('id',id);
+      alert(id);
     });
   }
 
-  function renderError(error) {
-    alert(error.responseJSON.message);
-  }
+
+
 
   function bindEventListeners() {
     handleNewBookmark();
-    handleDelete();
+    handleDeleteOneItem();
   }
 
   return {
     render,
     bindEventListeners,
     generateBookmark,
-    renderError
+    
+    
+    // renderError
   };
 }());

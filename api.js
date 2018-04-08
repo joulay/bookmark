@@ -10,12 +10,14 @@ const api = (function() {
   };
   const createBookmark = function(bookmarkData, callback) {
     const newEntry = JSON.stringify(bookmarkData);
+   
     return $.ajax({
       'url': BASE_URL + '/bookmarks',
       'method': 'POST',
       'contentType': 'application/json',
       'data': newEntry,
-      'success': callback, // 1 passing results from db 
+      'success': callback 
+      // 1 passing results from db 
     });
   };
   const deleteBookmark = function(id, callback) {
