@@ -50,7 +50,6 @@ const bookmarkList = (function(){
       $('input[name=rating]').prop('checked',false);
       $('#url').val('');
       api.createBookmark(newBookmark, function(data) { // 2 data is coming from .ajax
-        alert('po');
         store.addBookmark(data); 
         render();
         // handleDeleteOneItem(newBookmark.id);
@@ -74,10 +73,10 @@ const bookmarkList = (function(){
   
   function handleDeleteOneItem(){
     $('.bookmarks-list').on('click', event => {
-      console.log('tareet',event);
       const id = event.target.dataset.bookmarkId;
-      console.log('id',id);
-      alert(id);
+      if(id){
+        api.deleteBookmark(id, render);
+      }
     });
   }
 

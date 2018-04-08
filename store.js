@@ -9,15 +9,15 @@ const store = (function() {
     this.list.push(item);
   };
 
-  // const deleteBookmark = function(id) {
-    
-  // };
+  const deleteBookmark = function(id) {
+    this.list.splice(id, 1);
+  };
  
   return {
     list: [],
     expanded: false,
     addBookmark,
-    // deleteBookmark
+    deleteBookmark
   };
 
 }());
