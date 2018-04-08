@@ -8,12 +8,12 @@ const bookmarkList = (function(){
     return bookmarks.join('');
   }
 
-  function render() { //be involved with getting stuff on screen
+  function render(filtered = false) { //be involved with getting stuff on screen
     //works immediately to work with w/e there by default
     let filteredItems = store.list;
 
-    console.log('asdf', filteredItems);
-    console.log('ratingfiltered', store.ratingFilter);
+    console.log('filtered', filtered);
+
     if (store.ratingFilter) {
       filteredItems = filteredItems.filter(item => {
         console.log('each', item);
@@ -72,12 +72,25 @@ const bookmarkList = (function(){
     });
   }
   
-  function handleDeleteOneItem(){
-    $('.bookmarks-list').on('click', event => {
+  function handleDelete(){
+    $('.bookmarks-list').on('click', '.bookmark-delete', event => {
+      
       const id = event.target.dataset.bookmarkId;
+      console.log('id', id);
       if(id){
-        api.deleteBookmark(id, render);
+        api.deleteBookmark(id, function(data){
+          render(true);
+        });
       }
+    });
+  }
+
+  function handleDetail(){
+    $('.bookmarks-list').on('click', '.bookmark-toggle', event => {
+      
+      const bookmarkId = $(event.currentTarget).attr('data-bookmark-id');
+      console.log('bookmark', bookmarkId);
+      $(`[data-bookmark-id=${bookmarkId}]`).find('.bookmark-descr').toggleClass('hidden');
     });
   }
 
@@ -91,7 +104,7 @@ const bookmarkList = (function(){
     });
   }
 
-
+  
   function renderError(error) {
     alert(error.responseJSON.message);
   }
@@ -99,7 +112,8 @@ const bookmarkList = (function(){
 
   function bindEventListeners() {
     handleNewBookmark();
-    handleDeleteOneItem();
+    handleDelete();
+    handleDetail();
     filterByRating();
   }
 
