@@ -13,11 +13,21 @@ const store = (function() {
     this.list.splice(id, 1);
   };
  
+  const setRatingFilter = function(rating) {
+    if(rating ==='none') {
+      this.ratingFilter = null;
+    } else {
+      this.ratingFilter = rating;
+    }
+  };
+
   return {
     list: [],
     expanded: false,
     addBookmark,
-    deleteBookmark
+    ratingFilter: null,
+    deleteBookmark, 
+    setRatingFilter
   };
 
 }());

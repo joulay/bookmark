@@ -53,23 +53,10 @@ const bookmarkList = (function(){
         store.addBookmark(data); 
         render();
         // handleDeleteOneItem(newBookmark.id);
-      });
-      // .fail(renderError);
+      })
+        .fail(renderError);
     });
   }
-
-
-
-  // function handleDelete(){
-  //   alert('adsfads');
-  //   $('.bookmark-list').on('click', function(event){
-
-  //     alert('delete');
-  //     const id = $(event.currentTarget).closest('li').attr('data-bookmark-id');
-  //     api.deleteBookmark(id, render);
-  //     console.log('delete button ', id);
-  //   });
-  // }
   
   function handleDeleteOneItem(){
     $('.bookmarks-list').on('click', event => {
@@ -81,6 +68,18 @@ const bookmarkList = (function(){
   }
 
 
+  function filterByRating(){
+    $('#rating').change(event => {
+      const rating = $(event.currentTarget).val();
+      store.setRatingFilter(rating);
+      render();
+    });
+  }
+
+
+  function renderError(error) {
+    alert(error.responseJSON.message);
+  }
 
 
   function bindEventListeners() {
@@ -92,8 +91,7 @@ const bookmarkList = (function(){
     render,
     bindEventListeners,
     generateBookmark,
-    
-    
-    // renderError
+    renderError,
+    filterByRating
   };
 }());
