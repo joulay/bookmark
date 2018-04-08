@@ -12,22 +12,24 @@ const bookmarkList = (function(){
     //works immediately to work with w/e there by default
     let filteredItems = store.list;
 
-    console.log('filtered', filtered);
-
     if (store.ratingFilter) {
       filteredItems = filteredItems.filter(item => {
-        console.log('each', item);
         return item.rating >= store.ratingFilter;
-      });
-
-      console.log('FILTERED', filteredItems);
+      }); 
       $('.output').html(generateBookmarkIntoString(filteredItems));
-      
+    
+      if(filtered){
+        return api.getBookmark((bookmarks) => {
+          store.list = bookmarks;
+          $('.output').html(generateBookmarkIntoString(bookmarks));
+          $('#rating').val('none');
+          store.setRatingFilter(null); //sets null to rating filter, not method
+        });
+      }
     }else{
       api.getBookmark((bookmarks) => {
         store.list = bookmarks;
         $('.output').html(generateBookmarkIntoString(bookmarks));
-        // bindEventListeners();
       }); 
     }
   }
@@ -66,7 +68,6 @@ const bookmarkList = (function(){
       api.createBookmark(newBookmark, function(data) { // 2 data is coming from .ajax
         store.addBookmark(data); 
         render();
-        // handleDeleteOneItem(newBookmark.id);
       })
         .fail(renderError);
     });
@@ -74,41 +75,38 @@ const bookmarkList = (function(){
   
   function handleDelete(){
     $('.bookmarks-list').on('click', '.bookmark-delete', event => {
-      
       const id = event.target.dataset.bookmarkId;
-      console.log('id', id);
       if(id){
         api.deleteBookmark(id, function(data){
-          render(true);
+          if (store.ratingFilter) {
+            render(true);
+          }else{
+            render();
+          }
         });
+
       }
     });
   }
 
   function handleDetail(){
     $('.bookmarks-list').on('click', '.bookmark-toggle', event => {
-      
       const bookmarkId = $(event.currentTarget).attr('data-bookmark-id');
-      console.log('bookmark', bookmarkId);
       $(`[data-bookmark-id=${bookmarkId}]`).find('.bookmark-descr').toggleClass('hidden');
     });
   }
 
-
   function filterByRating(){
     $('#rating').change(event => {
       const rating = $(event.currentTarget).val();
-     
       store.setRatingFilter(rating);
       render();
     });
   }
 
-  
   function renderError(error) {
     alert(error.responseJSON.message);
   }
-
 
   function bindEventListeners() {
     handleNewBookmark();
@@ -122,6 +120,5 @@ const bookmarkList = (function(){
     bindEventListeners,
     generateBookmark,
     renderError,
-    
   };
 }());

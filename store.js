@@ -23,7 +23,6 @@ const store = (function() {
 
   return {
     list: [],
-    expanded: false,
     addBookmark,
     ratingFilter: null,
     deleteBookmark, 
