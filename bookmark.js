@@ -10,12 +10,17 @@ const bookmarkList = (function(){
 
   function render() { //be involved with getting stuff on screen
     //works immediately to work with w/e there by default
+    let filteredItems = store.list;
+    if (store.ratingFilter) {
+      filteredItems = filteredItems.filter(item => {
+        item.rating >= store.ratingFilter;
+      });
+    }
     api.getBookmark((bookmarks) => {
       store.list = bookmarks;
       $('.output').html(generateBookmarkIntoString(bookmarks));
       // bindEventListeners();
-    });
-
+    }); 
   }
 
   function generateBookmark(bookmark) {
